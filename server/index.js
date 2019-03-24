@@ -11,5 +11,9 @@ app.use(cors());
 const routes = require('./routes/routes');
 app.use(routes);
 
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(__dirname + '/public'));
+    app.get(/.*/,(req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Server started on port ${port}`));
