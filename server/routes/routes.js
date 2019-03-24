@@ -4,7 +4,7 @@ const watson = require('../api/watson');
 
 
 //Rotas do watason
-router.post('/translate', watson.postTranslate);
-router.post('/personality', watson.postPersonality);
+router.post('/api/translate', watson.postTranslate);
+router.post('/api/personality', watson.postPersonality);
 
 module.exports = router;
