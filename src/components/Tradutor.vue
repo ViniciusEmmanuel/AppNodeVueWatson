@@ -157,7 +157,7 @@
                 //Referencia o arquivo ao link para salvar
                 save.href = URL.createObjectURL(file);
                 //Nomeia o arquivo
-                save.download = name + "-emInglês";
+                save.download = name + "-emInglês.txt";
             },
             fechar: function () {
                 //Limpa as variaveis
