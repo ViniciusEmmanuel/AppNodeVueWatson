@@ -49,9 +49,16 @@ exports.postPersonality = (req, res) => {
     };
 
     personalityInsights.profile(profileParams, function (error, profile) {
-        const resp = profile.personality.map((personality) =>{
+        const perosnality = profile.personality.map((personality) =>{
            return personality;
     });
+        const needs = profile.needs.map((needs) =>{
+            return needs;
+        });
+        const values = profile.values.map((values) =>{
+            return values;
+        });
+        const resp = [perosnality,needs,values];
         res.status(200).send(resp);
     });
 
