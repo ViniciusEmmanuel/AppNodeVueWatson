@@ -31,39 +31,105 @@
             </div>
         </div>
 
+
         <div v-if="this.valida === true">
             <h2>Personality Insights</h2>
-            <table class="table table-hover ">
-                <tbody>
-                <tr v-for="item in personality[0] " :key="item.id">
-                    <td>
-                        <b-dropdown id="ddown1" text="Personality: percentile" variant="light" class="m-md-2">
-                            <b-dropdown-item>
-                                {{item.name}}: [{{item.percentile}}]
-                            </b-dropdown-item>
-                            <b-dropdown-item v-for=" i in item.children" :key="i.id">
-                                {{i.name}}: [{{i.percentile}}]
-                            </b-dropdown-item>
-                        </b-dropdown>
-                    </td>
-                    <td>
-                        <b-dropdown id="ddown1" text="Needs: percentile" variant="light" class="m-md-2">
-                            <b-dropdown-item v-for="item in personality[1] " :key="item.id">
-                                {{item.name}}: [{{item.percentile}}]
-                            </b-dropdown-item>
-                        </b-dropdown>
-                    </td>
-                    <td>
-                        <b-dropdown id="ddown1" text="Values: percentile" variant="light" class="m-md-2">
-                            <b-dropdown-item v-for="item in personality[2] " :key="item.id">
-                                {{item.name}}: [{{item.percentile}}]
-                            </b-dropdown-item>
-                        </b-dropdown>
-                    </td>
-                </tr>
+            <div id="tbl">
+                <table id="tbl1" class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h5>Personality</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in personality[0] " :key="item.id">
+                        <td>
+                            <h5>{{item.name}}
+                                <b-dropdown id="ddown1" variant="light" class="m-md-2">
+                                    <b-dropdown-item v-for=" i in item.children" :key="i.id">
+                                        {{i.name}}: [{{i.percentile}}]
+                                    </b-dropdown-item>
+                                </b-dropdown>
+                            </h5>
+                            <p>{{item.percentile}}</p>
 
-                </tbody>
-            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="tbl2" class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h5>Needs</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in personality[1]" :key="item.id">
+                        <td v-if="index <= 4">
+                            <div>
+                                <h5>{{item.name}}</h5>
+                                <p>{{item.percentile}}</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="tbl3" class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h5>Needs</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in personality[1]" :key="item.id">
+                        <td v-if="index > 4 && index <=8">
+                                <h5>{{item.name}}</h5>
+                                <p>{{item.percentile}}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="tbl4" class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h5>Needs</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item,index) in personality[1]" :key="item.id">
+                        <td v-if="index > 8">
+                            <h5>{{item.name}}</h5>
+                            <p>{{item.percentile}}</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table id="tbl5" class="table table-hover ">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h5>Values</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in personality[2]" :key="item.id">
+                        <td>
+                            <h5>{{item.name}}</h5>
+                            <h6>{{item.percentile}}</h6>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>
@@ -116,7 +182,6 @@
                         vm.err = '';
                         func.postPersonality(dados).then((resp) => {
                             vm.personality = resp.data;
-                            console.log(vm.personality);
                             vm.valida = true;
                         });
                     } else {
@@ -191,7 +256,7 @@
         margin: 10px;
     }
 
-    #textarea1{
+    #textarea1 {
         display: table-cell;
         float: left;
         width: 500px;
@@ -203,14 +268,19 @@
         width: 500px;
     }
 
-    #txtarea, table{
+    #tbl1,#tbl2,#tbl3,#tbl4,#tbl5 {
+        display: table-cell;
+        width: 0%;
+    }
+
+    #txtarea, #tbl {
         display: table;
         margin-left: auto;
         margin-right: auto;
         height: 70px;
     }
-    table{
-        width: 70%;
-        height: auto;
+
+    td {
+        height: 140px;
     }
 </style>
